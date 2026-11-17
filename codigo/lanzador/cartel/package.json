@@ -1,0 +1,7 @@
+{
+  "name": "trazo-v4-cartel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "El cartel con la dirección para la tablet",
+  "main": "main.js"
+}

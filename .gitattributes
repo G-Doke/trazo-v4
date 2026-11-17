@@ -1,0 +1,2 @@
+# Todo viaja tal cual: el .bat necesita CRLF y sin BOM, los .zip y .node son binarios.
+* -text

@@ -1,0 +1,141 @@
+TRAZO v3 — app de escritorio (Spout directo a Resolume, sin OBS)
+================================================================
+
+Qué hace
+--------
+Abre el tablero de TRAZO v3 en una ventana propia y, en paralelo, una salida
+invisible que se dibuja en la placa de video y sale por Spout. En Resolume
+aparece como fuente "TRAZO v3", a 1920×1080 y 60 cuadros por segundo, con
+fondo transparente.
+
+Probado el 16/9/2026 en la PC de escritorio (Radeon RX 580) con Resolume
+Arena 7.2.1: la fuente aparece en Sources > Spout Servers, se compone con
+transparencia sobre otra capa, y la app levanta el servidor sola si no está.
+
+
+En la MSI, una sola vez
+-----------------------
+TRAZO v3 vive en GitHub, en un repo privado: https://github.com/G-Doke/trazo-v3
+Es el mismo camino que PUNTERO (bpm-board), con la misma cuenta, así que la
+MSI ya tiene permiso para bajarlo.
+
+1. La MSI necesita Git y Node (los mismos que usa PUNTERO). Si falta alguno:
+   git-scm.com y nodejs.org (versión LTS).
+
+2. Abrí PowerShell en la carpeta donde lo quieras (por ejemplo Documentos:
+   en el Explorador, clic derecho en un lugar vacío > Abrir en Terminal) y
+   pegá:
+
+     git clone https://github.com/G-Doke/trazo-v3.git
+
+   Queda una carpeta trazo-v3 con todo adentro.
+   (Sin git: en la página del repo, botón verde Code > Download ZIP, con la
+   sesión de G-Doke abierta en el navegador, y descomprimilo. Así no anda
+   actualizar.bat: para actualizar, bajá el zip de nuevo.)
+
+3. Doble clic en trazo-v3\escritorio\instalar.bat. Necesita internet: baja
+   Electron (unos 120 MB). Cuando dice "Listo", ya está.
+
+La primera vez arranca con la escena que tenía la PC de escritorio cuando se
+subió (escena-inicial.json). Desde ahí, cada máquina guarda la suya en
+escena-compartida-8791.json, que no viaja por git: actualizar nunca te pisa
+lo que dibujaste en la MSI. Para llevar una escena posterior, el disquete de
+la PC baja un archivo con todo, y se abre en la MSI.
+
+No hace falta compilar nada: el módulo de Spout (spout\salida_spout.node) ya
+viaja compilado en el repo, listo para Windows 10 u 11 de 64 bits.
+
+Sin internet en la MSI: en la PC de escritorio, doble clic en
+trazo-v3\preparar-para-MSI.bat deja TRAZO-v3-para-MSI.zip en el Escritorio
+para llevar en pendrive (Electron igual se baja una vez con instalar.bat).
+
+
+Actualizar la MSI
+-----------------
+Cuando se cambie algo en la PC de escritorio y se suba a GitHub:
+
+  Doble clic en trazo-v3\actualizar.bat
+
+Si TRAZO estaba abierto, cerralo y volvé a abrirlo. No toca la escena ni la
+carpeta medios\ de la MSI.
+
+
+Cada vez que toques
+-------------------
+1. Doble clic en trazo-v3\abrir-escritorio.bat.
+   (Si ya abriste iniciar.bat, la app usa ese servidor; si no, lo levanta sola.)
+
+2. El título de la ventana dice cómo va la salida, por ejemplo:
+     TRAZO v3 · Spout "TRAZO v3" 1920×1080 · 60 fps · fondo transparente · <placa>
+   Si ahí los fps están en 0, mirá "Si algo no anda", abajo.
+
+3. En Resolume:
+   - Sources > Spout Servers > "TRAZO v3": arrastralo a un clip y disparalo.
+   - Capa en modo Alpha para que se vea lo de abajo por los huecos.
+     En el clip, Alpha Type tiene que quedar en Premultiplied (Resolume lo
+     pone solo). En Straight los bordes suaves se ven sucios.
+   - Si preferís sumar luz, la capa en Add también anda.
+
+4. La tablet se conecta como siempre. La dirección está en el menú
+   Tablet > Dirección para la tablet (puerto 8791).
+
+Cerrar la ventana del tablero cierra todo, y el servidor guarda la escena
+antes de irse.
+
+
+Menú "Salida Spout"
+-------------------
+  Mandar a Resolume por Spout   prende o apaga la salida
+  Fondo transparente            apagado, la salida va sobre negro
+  Resolución                    1280×720, 1920×1080, 2560×1440 o 3840×2160
+  30 o 60 cuadros por segundo
+  Por placa de video (rápido)   la imagen no pasa por el procesador
+  Modo compatible               por el procesador; más lento, pero anda si el
+                                modo rápido falla
+  Recargar la salida            si algo se trabó
+  Ver la salida en una ventana  para mirarla sin abrir Resolume
+  Placas de video…              qué placas tiene la máquina y por cuál sale Spout
+
+Lo que elegís se recuerda para la próxima vez.
+
+
+Si algo no anda
+---------------
+Resolume no lista "TRAZO v3"
+  - Fijate que el título de la ventana diga "Spout" y fps mayores a 0.
+  - Resolume y TRAZO tienen que estar en la misma PC.
+
+En Resolume se ve negro, pero el título marca fps
+  Pasa en notebooks con dos placas de video (típico en las MSI: una Intel
+  y una NVIDIA): Resolume corre en una y TRAZO en la otra, y Spout no cruza.
+  Arreglo, en Windows:
+    Configuración > Sistema > Pantalla > Gráficos
+    Agregá estos dos programas y poneles "Alto rendimiento":
+      - C:\Program Files\Resolume Arena\Arena.exe
+      - trazo-v3\escritorio\node_modules\electron\dist\electron.exe
+  Cerrá y volvé a abrir los dos. Menú Salida Spout > Placas de video… dice
+  por cuál sale.
+
+La app avisa "pasé al modo compatible"
+  La placa no dejó compartir la textura. Sigue andando por el procesador. Si
+  va lento, bajá a 1280×720 o a 30 cuadros por segundo.
+
+"No encuentro el módulo de Spout"
+  Falta escritorio\spout\salida_spout.node: copialo de la PC de escritorio.
+
+"No pude levantar el servidor en el puerto 8791"
+  Hay otro programa en ese puerto: casi siempre un servidor de TRAZO v3 que
+  quedó abierto en una ventana negra. Cerralo y volvé a abrir.
+
+Un video no aparece en la tablet
+  Los videos viven en trazo-v3\medios\. Si abriste la sesión en otra máquina,
+  llevá esa carpeta también.
+
+
+Para quien toque el código (no hace falta para usarla)
+------------------------------------------------------
+  main.js            la app: servidor, ventanas, salida offscreen y menú
+  spout\             el módulo nativo propio (salida_spout.cc) y el SDK de
+                     Spout 2 (BSD 2-Clause, ver spout\sdk\LICENSE-Spout2.txt)
+  npm run spout      recompila el módulo (necesita Visual Studio 2022 con C++)
+  Electron 44.4.1, fijo en package.json.

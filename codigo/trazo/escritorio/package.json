@@ -1,0 +1,16 @@
+{
+  "name": "trazo-v3-escritorio",
+  "version": "3.0.0",
+  "private": true,
+  "description": "TRAZO v3 como app de escritorio: el tablero y una salida que va directo a Resolume por Spout, sin OBS",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "spout": "node-gyp rebuild --directory=spout --target=44.4.1 --arch=x64 --dist-url=https://electronjs.org/headers && node -e \"require('fs').copyFileSync('spout/build/Release/salida_spout.node', 'spout/salida_spout.node')\""
+  },
+  "devDependencies": {
+    "electron": "44.4.1",
+    "node-addon-api": "8.9.2",
+    "node-gyp": "13.0.2"
+  }
+}

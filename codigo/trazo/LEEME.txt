@@ -1,0 +1,316 @@
+TRAZO v3 — TRAZO v2 con los pinceles del reel
+=============================================
+
+La versión B (1/10/2026)
+------------------------
+Al lado de la de siempre hay una versión B, para probar lo nuevo sin tocar
+la que usás en vivo. Se abre con iniciar-b.bat y corre en el puerto 8792,
+con su propia escena: podés tener las dos abiertas al mismo tiempo. Las dos
+viajan juntas por git, así que actualizar.bat baja las dos.
+
+Con Spout a Resolume, la B se abre con abrir-escritorio-b.bat: la misma app
+de escritorio, el mismo Spout, pero levantando el tablero de la B en el 8792.
+
+Lo que tiene la B y la A no:
+
+  MODO IMAGEN     Botón IMAGEN, al lado de Fuente (o la tecla I). Prendido,
+                  el lienzo no dibuja: acomoda la fuente de la capa como una
+                  foto en el celular. Un dedo la arrastra, dos pellizcan para
+                  zoom y giro, un toque la voltea. Con mouse, la rueda hace
+                  zoom y Shift+arrastrar la gira. El encuadre se prende de
+                  color para que se vea que estás en ese modo.
+
+  FUENTE QUE SE MUEVE  En el panel Fuente: Giro, y abajo Balanceo (la mece de
+                  un lado al otro), Latido (la hincha con el golpe, y con el
+                  audio si está prendido) y Deriva (la pasea), con su división
+                  en tiempos.
+
+  FONDO           Botón FONDO, arriba. Color plano o degradé (lineal, radial o
+                  cónico) debajo de todo, dentro del encuadre, con movimiento
+                  al pulso, bandas, grano y viñeta. Abajo hay seis degradés
+                  generativos sacados del color del pincel: tocás uno y entra;
+                  "Otros seis" vuelve a tirar. Los colores se cargan con el
+                  color que tengas en el pincel.
+
+  LA IMAGEN ABAJO Al cargar una imagen, un video o una secuencia, entra sola
+                  en la última capa libre (de abajo hacia arriba), para que
+                  quede debajo de todo lo dibujado.
+
+  REVELAR ENTRE CAPAS  En el panel Fuente, con "Revelar", elegís quién la
+                  revela: "Solo esta capa" (como venía) o "Todas las de
+                  arriba". En ese modo, los trazos de las capas de arriba
+                  hacen de ventana a la imagen, y abajo tenés un interruptor
+                  por capa (1, 2, 3…) para decidir cuál revela y cuál pinta
+                  por encima. Una capa con fuente propia nunca entra: está
+                  haciendo lo suyo.
+
+  COLORES A MANO  Los ocho círculos de color se personalizan. Con el dedo:
+                  mantené apretado medio segundo un color del historial (o de
+                  la elevación) — los círculos se prenden y arriba dice "tocá
+                  un círculo" — y tocá el que quieras reemplazar. Con mouse
+                  también se puede arrastrar y soltar. Si te arrepentís, tocá
+                  en cualquier otro lado y se suelta. Queda con la sesión.
+
+  LOOP SIN CORTE  Deformar onda y respirar ahora cierran la vuelta justo donde
+                  el loop vuelve a empezar. Con loops de 1, 3, 6 o 9 tiempos
+                  se notaba un salto al reiniciar; ya no.
+
+Lo que está en las dos:
+
+  CADA PANTALLA SU CAPA  Los cambios viajan por capa y no como la escena
+                  entera. La tablet puede estar efectando la capa 3 mientras
+                  acá movés la 1, y ninguna pisa a la otra.
+
+
+Cómo se levanta
+---------------
+Dos maneras, las dos con el mismo tablero:
+
+  abrir-escritorio.bat   La app de escritorio: el tablero en su ventana y la
+                         salida directo a Resolume por Spout, sin OBS. Ver
+                         escritorio\INSTRUCTIVO.txt (la primera vez en cada
+                         máquina hay que correr escritorio\instalar.bat).
+
+  iniciar.bat            Como en v2: el servidor y una ventana de Chrome, para
+                         capturar con OBS.
+
+  actualizar.bat         En la MSI: baja lo último desde GitHub
+                         (G-Doke/trazo-v3, privado). Cómo instalarlo la
+                         primera vez: escritorio\INSTRUCTIVO.txt.
+
+TRAZO v3 usa el puerto 8791: puede estar abierto al mismo tiempo que PUNTERO
+(8788), TRAZO (8789) y TRAZO v2 (8790) sin pisarse. v2 quedó intacto en su
+carpeta, y v3 abre sus sesiones guardadas.
+
+Todo lo nuevo arranca apagado: con los controles de fábrica, un trazo de v3
+es igual a uno de v2.
+
+
+Lo nuevo en v3
+==============
+
+Pinceles de estampa (P, familia Estampa)
+----------------------------------------
+Una punta con volumen estampada muy junta a lo largo del camino: de ahí salen
+los tubos en 3D del reel.
+
+  Esfera, Burbuja, Rueda de color, Acuarela, Pluma, Destello
+  Tu imagen      una imagen (PNG con transparencia, JPG, GIF animado) o un video
+  Secuencia      varios PNG que pasan como cuadros (ver abajo)
+  Cámara         la cámara de la PC: cada estampa es un pedazo de lo que ve
+
+
+Punta (botón en la columna de dibujo)
+-------------------------------------
+Qué estampa el pincel y cómo:
+
+  - Imagen o video…, Secuencia… o Cámara.
+  - Giro: Fija (siempre derecha, para que un texto se lea), Sigue el trazo, o
+    Gira al pulso.
+  - Espaciado entre estampas, y Teñir con el color del pincel.
+
+SECUENCIA. Elegí varios PNG a la vez (de 2 a 24, mejor del mismo tamaño y con
+fondo transparente): por ejemplo seis manchas de texto preparadas en
+Photoshop. Van en el orden de sus nombres (mancha-1, mancha-2 … mancha-10).
+
+Cómo elige cuadro cada estampa:
+
+  Azar      cada estampa toma uno al azar y se queda con ese
+  Titila    cada estampa cambia a otro al azar en cada paso
+  Anima     cada estampa pasa los cuadros en orden, cada una arrancando en otro
+  En fila   los cuadros van en orden a lo largo del trazo, y la fila corre
+  Juntas    todas muestran el mismo cuadro y cambian a la vez
+
+Cuánto dura cada cuadro: ⅛, ¼, ½, 1, 2 o 4 tiempos, al BPM de la capa (SYNC
+los alinea), o Libre, en cuadros por segundo. Se puede mover con una perilla
+MIDI (Punta · tiempos por cuadro).
+
+Los cuadros pasan también mientras dibujás: son el contenido de la punta.
+
+
+Pulso (botón en la columna de dibujo)
+-------------------------------------
+  - Arcoíris a lo largo del trazo.
+  - Giro de color al pulso.
+  - Latido de tamaño, cada ½, 1, 2 o 4 tiempos.
+
+Con GLOBAL prendido, Punta y Pulso cambian los trazos que ya están en la capa,
+como el color y el grosor.
+
+
+APAGA (al lado de FIJO)
+-----------------------
+El trazo no loopea: se apaga desde la cola, también mientras dibujás, y
+desaparece. Los botones de loop pasan a decir cuánto vive (1, 4 u 8 tiempos).
+Vale para los próximos trazos: no toca lo que ya está sonando. Con 1 TRAZO, el
+nuevo reemplaza a los que no se apagan y deja que los otros terminen solos.
+
+
+Profundidad (columna de dibujo)
+-------------------------------
+Lo más viejo del trazo se desenfoca: lo nuevo queda nítido adelante y lo viejo
+atrás. Con APAGA da el look del reel.
+
+
+Efectos nuevos (panel de efectos)
+---------------------------------
+  Teñir                 tiñe imagen, video, cámara y trazos de la capa con el
+                        color que elijas (o el del pincel). Las sombras van al
+                        negro, los medios al color y las luces al blanco.
+  Sombra y relieve      volumen: la silueta iluminada y una sombra suave
+  Extrusión en láminas  la capa repetida hacia atrás con contorno
+  Esfera                la imagen curvada adentro de una bola que rueda
+  Chispas               estrellas que titilan alrededor del trazo
+  Fluido                humo que se deshilacha y sube
+
+El panel de efectos ahora scrollea: si la lista no entra en la pantalla, se
+baja con la rueda o arrastrando.
+
+
+Fuente: video, secuencia y Revelar
+----------------------------------
+Además de imagen y cámara, una capa puede llevar:
+
+  - Un video (MP4, WEBM). Se sube al servidor, a la carpeta medios\, y lo ven
+    todas las pantallas: la tablet y la salida por Spout. Tiene velocidad.
+  - Una secuencia de imágenes que pasan como cuadros, en orden o al azar, al
+    BPM o libres, igual que en la punta.
+
+Soltar un video sobre la ventana lo pone de fuente; soltar varias imágenes
+juntas arma una secuencia.
+
+REVELAR (en el panel de fuente): la fuente se ve solo donde pasa el pincel,
+como una máscara. Con una secuencia de un texto dibujado en varias formas, el
+texto aparece al pintar encima y va cambiando al tiempo elegido. Bajando la
+opacidad de la fuente vuelve a aparecer el color del pincel.
+
+
+Lente: zoom y mover toda la escena (debajo del encuadre)
+-------------------------------------------------------
+  −  slider  +   zoom de toda la escena, del 25 % al 400 %. Los botones siguen
+                 solos si los mantenés apretados. El número vuelve a 100 %.
+  Joystick       mantené apretado y corré la perilla hacia donde quieras llevar
+                 la escena: se mueve mientras lo sostenés, más rápido cuanto
+                 más lejos del centro. Al soltar, queda donde la dejaste.
+  ⌖              vuelve la escena al centro.
+
+Lo ven todas las pantallas y la salida hacia Resolume. Con zoom, el trazo cae
+igual debajo del lápiz, y el grosor elegido es el que se ve en pantalla.
+También se maneja por MIDI (Lente · zoom, mover horizontal, mover vertical y
+centrar).
+
+
+Salida con fondo transparente
+-----------------------------
+La ventana de salida con ?alfa=1 no pinta el fondo de negro. La usa la app de
+escritorio: en Resolume la capa llega con su transparencia (modo Alpha, y en
+el clip "Alpha Type: Premultiplied", que Resolume pone solo).
+
+La salida refleja todo lo que se hace en el tablero de la PC: trazos, zoom y
+posición, glow, aditivo, sync, sliders (mientras se mueven) y el reloj. Si
+hay dos tableros abiertos en la PC (Chrome y la app), sigue al último que
+tocaste. Si la página se actualiza, la salida se recarga sola en unos
+segundos.
+
+
+Lo de v2, igual que antes
+=========================
+
+La idea
+-------
+Es PUNTERO, con todo lo que ya funcionaba y de la misma manera: loops al BPM,
+FIT, FIJO, estela, pinceles, diez escenas de diez capas, remix de escenas y de
+capas, candados, espejo y BPM propio por capa, glow, aditivo, color en CMYK.
+Encima de eso, lo nuevo de TRAZO y los efectos de PRISMA.
+
+Mientras dibujás, el trazo se ve limpio, tal cual lo hacés con la mano: nada
+lo mueve ni lo corta. Cuando levantás el lápiz, el dibujo entero se va
+apagando en un pulso mientras el loop y el movimiento entran. Es un cruce,
+no un salto.
+
+
+Dos interruptores que cambian cómo se trabaja
+---------------------------------------------
+1 TRAZO (arriba, al lado de APAGA). Superposición, como TRAZO v1: cada capa
+guarda una sola pincelada y la nueva reemplaza a la anterior. Tocándolo
+queda en LIBRE y los trazos se suman en la capa, como en PUNTERO.
+
+GLOBAL (arriba de la columna de dibujo, a la derecha). Prendido, mover color,
+pincel, grosor, estela, presión, profundidad, punta o pulso cambia los trazos
+que ya están en la capa elegida: se edita lo que está sonando. Apagado, esos
+controles solo preparan el próximo trazo y el pizarrón no se mueve.
+
+
+SYNC
+----
+El botón SYNC, arriba al lado del TAP, alinea todo al golpe que marcás: los
+loops vuelven a su principio, y el movimiento, los efectos y las secuencias
+se enganchan ahí. Tocalo en el 1. También con 0 o Enter, o desde el MIDI.
+
+
+Movimiento (panel de capas, o tecla V)
+--------------------------------------
+Es un ajuste de la capa, como los efectos: mueve los trazos que ya están y
+los que vengan. En "Normal" el trazo es exactamente el de PUNTERO.
+
+  RECORRER   natural (el loop de PUNTERO), se pinta solo, segmento,
+             partículas
+  DEFORMAR   quieto, onda, vibración, respirar, desarmar
+  COPIAS     sin copias, grilla, radial o eco
+
+La Reacción es cuánto le hace caso el movimiento a la energía: el micrófono,
+o el pulso si está apagado.
+
+
+Efectos (panel de capas)
+------------------------
+Hasta seis por capa, en cadena: el 2 trabaja sobre lo que dejó el 1, el 3
+sobre eso, y así. Cada efecto entra en 0 % y se levanta con el slider. AUTO lo
+mueve solo: al pulso, cada ¼ a 8 tiempos, o con el audio (♪).
+
+
+Audio y MIDI
+------------
+El micrófono de la PC se vuelve energía (banda, ganancia, ataque, caída,
+umbral). La controladora MIDI se engancha sola: perillas a parámetros, botones
+a acciones, teclas a escenas. v3 suma destinos: profundidad, arcoíris, giro de
+color, latido, APAGA, y tiempos por cuadro de la punta y de la fuente.
+
+
+La tablet
+---------
+  1. En la PC, abrir-escritorio.bat o iniciar.bat.
+  2. En la tablet, con la misma wifi, abrir la dirección del servidor (algo
+     como http://192.168.0.11:8791). En la app de escritorio está en el menú
+     Tablet; con iniciar.bat, en la ventana del servidor.
+  3. El cartel de arriba dice cuántas pantallas están en línea.
+
+En el iPad conviene Safari con "Agregar a pantalla de inicio" (botón de
+compartir): TRAZO se abre a pantalla completa, sin barra de direcciones ni
+pestañas, y le queda más lugar al encuadre. Chrome en iPad usa el mismo motor
+que Safari, así que no dibuja mejor ni peor.
+
+Deshacer, rehacer y borrar escena están arriba a la derecha, al lado de la
+columna de dibujo. Las columnas de los costados scrollean si no entran.
+
+El servidor guarda la escena compartida en escena-compartida-8791.json y los
+videos en medios\, al lado suyo.
+
+
+Teclas
+------
+  Espacio  play / pausa          T      tap
+  0 Enter  SYNC                  1 a 9  capa
+  P        pinceles              V      movimiento
+  Z        deshacer              C      borrar capa
+  H        ocultar interfaz      F      pantalla completa
+  S G A    sync de loops, glow, aditivo
+  E M      espejo de capa, metrónomo
+
+
+Guardado
+--------
+Sin servidor, la escena se guarda sola en el navegador. El disquete baja un
+archivo con todo, imágenes y secuencias incluidas; los videos quedan como
+referencia a la carpeta medios\, así que para llevar una sesión con videos a
+otra máquina hay que llevar esa carpeta (preparar-para-MSI.bat ya la incluye).
